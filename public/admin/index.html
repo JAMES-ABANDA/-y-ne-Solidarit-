@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin - Éyéné Solidarité</title>
+    <script src="https://unpkg.com/@supabase/supabase-js"></script>
+    <style>
+      /* Styles pour le dashboard admin */
+      .admin-container {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        height: 100vh;
+      }
+
+      .admin-sidebar {
+        background: #1a5276;
+        color: white;
+        padding: 20px;
+      }
+
+      .admin-content {
+        padding: 20px;
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .data-table th,
+      .data-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-container">
+      <div class="admin-sidebar">
+        <h2>Administration</h2>
+        <ul>
+          <li><a href="#" data-section="members">Membres</a></li>
+          <li><a href="#" data-section="transactions">Transactions</a></li>
+          <li><a href="#" data-section="reports">Rapports</a></li>
+        </ul>
+      </div>
+
+      <div class="admin-content">
+        <div id="membersSection">
+          <h3>Gestion des membres</h3>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Date d'inscription</th>
+              </tr>
+            </thead>
+            <tbody id="membersList">
+              <!-- Rempli dynamiquement -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Initialisation Supabase
+      const supabase = createClient(
+        "https://votre-id-supabase.supabase.co",
+        "votre-cle-api-supabase"
+      );
+
+      // Chargement des membres
+      async function loadMembers() {
+        const { data: members, error } = await supabase
+          .from("members")
+          .select("*");
+
+        if (error) {
+          console.error("Erreur:", error);
+          return;
+        }
+
+        const tableBody = document.getElementById("membersList");
+        tableBody.innerHTML = "";
+
+        members.forEach((member) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                    <td>${member.id}</td>
+                    <td>${member.full_name}</td>
+                    <td>${member.email}</td>
+                    <td>${new Date(member.created_at).toLocaleDateString()}</td>
+                `;
+          tableBody.appendChild(row);
+        });
+      }
+
+      // Au chargement de la page
+      document.addEventListener("DOMContentLoaded", () => {
+        loadMembers();
+      });
+    </script>
+  </body>
+</html>
