@@ -7,5 +7,7 @@
   "engines": {
     "node": "18.x"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@supabase/supabase-js": "^2.51.0"
+  }
 }
