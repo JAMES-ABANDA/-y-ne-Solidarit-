@@ -12,8 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <!-- Votre code HTML existant ici -->
-
     <!-- Section de connexion (nouvelle) -->
     <div class="auth-modal" id="authModal">
       <div class="auth-content">
@@ -27,6 +25,58 @@
         <p>Pas encore membre? <a href="#" id="showRegister">S'inscrire</a></p>
       </div>
     </div>
+
+    <!-- Ajoute ceci dans ton index.html, juste après la partie connexion -->
+    <!-- Modale d’authentification -->
+    <div class="auth-modal" id="authModal">
+      <div class="auth-content">
+        <span class="close-auth">&times;</span>
+
+        <!-- NAVIGATION LOGIN / REGISTER -->
+        <div class="auth-tabs">
+          <button id="tabLogin" class="active">Se connecter</button>
+          <button id="tabRegister">S'inscrire</button>
+        </div>
+
+        <!-- FORM LOGIN -->
+        <form id="loginForm" class="auth-form">
+          <label for="emailLogin">Email</label>
+          <input type="email" id="emailLogin" placeholder="Email" required />
+          <label for="passwordLogin">Mot de passe</label>
+          <input
+            type="password"
+            id="passwordLogin"
+            placeholder="Mot de passe"
+            required
+          />
+          <button type="submit">Se connecter</button>
+        </form>
+
+        <!-- FORM REGISTER (initialement caché) -->
+        <form id="registerForm" class="auth-form hidden">
+          <label for="emailRegister">Email</label>
+          <input type="email" id="emailRegister" placeholder="Email" required />
+          <label for="passwordRegister">Mot de passe</label>
+          <input
+            type="password"
+            id="passwordRegister"
+            placeholder="Mot de passe"
+            required
+          />
+          <label for="confirmPassword">Confirme mot de passe</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirme mot de passe"
+            required
+          />
+          <button type="submit">S'inscrire</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bouton de déconnexion (visible une fois connecté) -->
+    <button id="signOutBtn" class="hidden">Se déconnecter</button>
 
     <script src="/assets/js/supabase.js"></script>
     <script src="/assets/js/app.js"></script>
